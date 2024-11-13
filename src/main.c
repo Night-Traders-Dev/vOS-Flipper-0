@@ -5,6 +5,9 @@
 #include "lib/button_handler.h"
 #include "lib/draw_canvas.h"
 
+// Make the ViewPort global
+ViewPort* view_port;
+
 int32_t main_entry(void* p) {
     UNUSED(p);
 
@@ -14,7 +17,7 @@ int32_t main_entry(void* p) {
         .first_press_time = 0
     };
 
-    ViewPort* view_port = view_port_alloc();
+    view_port = view_port_alloc();
     view_port_draw_callback_set(view_port, draw_callback, NULL);
     view_port_input_callback_set(view_port, button_input_callback, &context);
 
