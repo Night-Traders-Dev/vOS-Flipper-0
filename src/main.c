@@ -7,14 +7,12 @@
 int32_t main_entry(void* p) {
     UNUSED(p);
 
-    // Initialize button handler context
     ButtonHandlerContext context = {
         .running = true,
         .back_press_count = 0,
         .first_press_time = 0
     };
 
-    // Initialize ViewPort
     ViewPort* view_port = view_port_alloc();
     view_port_draw_callback_set(view_port, draw_callback, NULL);
     view_port_input_callback_set(view_port, button_input_callback, &context);
