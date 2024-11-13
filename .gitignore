@@ -2,3 +2,6 @@ gui/dist
 gui/dist/*
 gui/.vscode
 gui/.vscode/*
+gui/*.bak
+gui/lib/*.bak
+gui/bin/*.bak
