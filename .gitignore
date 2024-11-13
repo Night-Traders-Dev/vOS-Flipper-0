@@ -1,0 +1,4 @@
+gui/dist
+gui/dist/*
+gui/.vscode
+gui/.vscode/*
