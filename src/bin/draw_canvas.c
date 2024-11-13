@@ -12,10 +12,15 @@ void draw_callback(Canvas* canvas, void* ctx) {
 
     switch(current_window) {
         case WindowStatus:
-            // Draw the status bar
-            canvas_draw_frame(canvas, 0, 0, canvas_width(canvas), canvas_height(canvas));
+            // Draw the status bar background
             canvas_set_color(canvas, ColorWhite);
             canvas_draw_box(canvas, 0, 0, canvas_width(canvas), 14);
+
+            // Draw the border around the status bar
+            canvas_set_color(canvas, ColorBlack);
+            canvas_draw_frame(canvas, 0, 0, canvas_width(canvas), 14);
+
+            // Draw the status bar text
             canvas_set_font(canvas, FontSecondary);
             canvas_set_color(canvas, ColorBlack);
             canvas_draw_str(canvas, 2, 10, "Status Bar");
