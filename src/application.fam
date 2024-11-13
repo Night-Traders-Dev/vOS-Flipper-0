@@ -1,0 +1,10 @@
+App(
+    appid="vos_node",
+    name="vOS Node",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="main_entry",
+    requires=["gui"],
+    stack_size=2 * 1024,
+    fap_icon="icon.png",
+    fap_category="Misc",
+)
