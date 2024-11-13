@@ -1,8 +1,6 @@
-// bin/button_handler.c
 #include <furi.h>
 #include <input/input.h>
 #include "../lib/button_handler.h"
-#include "../lib/draw_canvas.h"
 
 #define BACK_PRESS_LIMIT 3        // Number of presses needed
 #define TIME_WINDOW_MS 2000       // Time window in milliseconds
@@ -24,13 +22,11 @@ void button_input_callback(InputEvent* input_event, void* ctx) {
                 }
             }
         } else if(input_event->key == InputKeyLeft) {
-            // Navigate to the previous window
-            current_window = (current_window == 0) ? (WindowCount - 1) : (current_window - 1);
-            FURI_LOG_I("ButtonHandler", "Switched to the left window");
+            // Slide the scene over
+            FURI_LOG_I("ButtonHandler", "Sliding scene to the left");
         } else if(input_event->key == InputKeyRight) {
-            // Navigate to the next window
-            current_window = (current_window + 1) % WindowCount;
-            FURI_LOG_I("ButtonHandler", "Switched to the right window");
+            // Open the Flipper App Drawer
+            FURI_LOG_I("ButtonHandler", "Opening Flipper App Drawer");
         }
     }
 }

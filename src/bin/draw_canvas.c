@@ -3,33 +3,44 @@
 #include <gui/canvas.h>
 #include "../lib/draw_canvas.h"
 
-extern const Icon I_Hidden_window_9x8; // Example icon
+// Define the current window variable
+WindowType current_window = WindowStatus;
 
 void draw_callback(Canvas* canvas, void* ctx) {
     UNUSED(ctx);
-
     canvas_clear(canvas);
 
-    canvas_draw_frame(canvas, 0, 0, canvas_width(canvas), canvas_height(canvas));
+    switch(current_window) {
+        case WindowStatus:
+            // Draw the status bar
+            canvas_draw_frame(canvas, 0, 0, canvas_width(canvas), canvas_height(canvas));
+            canvas_set_color(canvas, ColorWhite);
+            canvas_draw_box(canvas, 0, 0, canvas_width(canvas), 14);
+            canvas_set_font(canvas, FontSecondary);
+            canvas_set_color(canvas, ColorBlack);
+            canvas_draw_str(canvas, 2, 10, "Status Bar");
+            break;
 
-    canvas_set_color(canvas, ColorWhite);
-    canvas_draw_box(canvas, 0, 0, canvas_width(canvas), 14);
+        case WindowEmpty:
+            // Draw an empty window
+            canvas_set_font(canvas, FontSecondary);
+            canvas_set_color(canvas, ColorBlack);
+            canvas_draw_str(canvas, canvas_width(canvas) / 2 - 30, canvas_height(canvas) / 2, "Empty Window");
+            break;
 
-    canvas_set_font(canvas, FontSecondary);
-    canvas_set_color(canvas, ColorBlack); // Set the color for text
-    canvas_draw_str(canvas, 2, 10, "Status Bar");
+        case WindowAbout:
+            // Draw the "About Me" window
+            canvas_set_font(canvas, FontSecondary);
+            canvas_set_color(canvas, ColorBlack);
+            canvas_draw_str(canvas, 10, 20, "About Me");
+            canvas_draw_str(canvas, 10, 40, "Created by blmvxer");
+            break;
 
-    uint8_t x = canvas_width(canvas) - 10; // Starting position for right-side icons
-    bool need_attention = true; // Example flag for notifications
-
-    if (need_attention) {
-        canvas_draw_icon(canvas, x - 9, 2, &I_Hidden_window_9x8);
-        x -= 12; // Move the x position left for the next icon
+        default:
+            // Handle unexpected values, including WindowCount
+            canvas_set_font(canvas, FontSecondary);
+            canvas_set_color(canvas, ColorBlack);
+            canvas_draw_str(canvas, canvas_width(canvas) / 2 - 30, canvas_height(canvas) / 2, "Unknown Window");
+            break;
     }
-
-    // Example: Draw additional icons or indicators as needed
-    // You can add more icons or indicators by updating the x position and repeating the above logic
-
-    // Draw a frame around the status bar
-    canvas_draw_rframe(canvas, 0, 0, canvas_width(canvas), 14, 1);
 }

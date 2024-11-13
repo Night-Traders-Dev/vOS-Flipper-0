@@ -4,7 +4,15 @@
 
 #include <gui/canvas.h>
 
-// Function prototype for the draw callback
+typedef enum {
+    WindowStatus,
+    WindowEmpty,
+    WindowAbout,
+    WindowCount
+} WindowType;
+
+extern WindowType current_window;
+
 void draw_callback(Canvas* canvas, void* ctx);
 
 #endif // DRAW_CANVAS_H

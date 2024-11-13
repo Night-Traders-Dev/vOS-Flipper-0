@@ -1,4 +1,3 @@
-// main.c
 #include <furi.h>
 #include <gui/gui.h>
 #include <gui/view_port.h>
