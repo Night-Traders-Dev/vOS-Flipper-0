@@ -7,10 +7,6 @@
 
 extern ViewPort* view_port;
 
-// Define the screen size for the cursor boundaries
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-
 #define BACK_PRESS_LIMIT 3
 #define TIME_WINDOW_MS 2000
 
@@ -42,7 +38,9 @@ void button_input_callback(InputEvent* input_event, void* ctx) {
             cursor_y = (cursor_y > 0) ? cursor_y - 1 : 0;
             view_port_update(view_port);
         } else if(input_event->key == InputKeyDown) {
-            cursor_y = (cursor_y < SCREEN_HEIGHT - 1) ? cursor_y + 1 : SCREEN_HEIGHT - 1;
+            cursor_y = (cursor_y < canvas_height(view_port_get_canvas(view_port)) - 1)
+                           ? cursor_y + 1
+                           : canvas_height(view_port_get_canvas(view_port)) - 1;
             view_port_update(view_port);
         }
     }
