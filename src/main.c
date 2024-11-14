@@ -1,9 +1,16 @@
 // main.c
+
 #include <furi.h>
 #include <gui/gui.h>
 #include <gui/view_port.h>
+#include <notification/notification_messages.h>
+
+
 #include "lib/button_handler.h"
 #include "lib/draw_canvas.h"
+#include "lib/main.h"
+
+
 
 // Make the ViewPort global
 ViewPort* view_port;

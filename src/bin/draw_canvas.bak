@@ -1,11 +1,17 @@
 // bin/draw_canvas.c
 #include <furi.h>
 #include <gui/canvas.h>
-#include <power/power_service/power.h> // Include the Power header
+#include <gui/view.h>
+#include <gui/elements.h>
+#include <notification/notification_messages.h>
+
+#include "../assets/assets_icons.h"
 #include "../lib/draw_canvas.h"
+#include "../lib/battery_info.h"
 
 // Define the current window variable
 WindowType current_window = WindowStatus;
+BatteryInfo* battery_info = NULL;
 
 void draw_callback(Canvas* canvas, void* ctx) {
     UNUSED(ctx);
@@ -26,18 +32,26 @@ void draw_callback(Canvas* canvas, void* ctx) {
             canvas_set_color(canvas, ColorBlack);
             canvas_draw_str(canvas, 2, 10, "Status Bar");
 
-            // Get and display the battery percentage using Power API
-            Power* power = furi_record_open(RECORD_POWER); // Open the Power service
-            PowerInfo power_info;
-            power_get_info(power, &power_info); // Retrieve power info
+            // Initialize battery information if not already done
+            if(!battery_info) {
+                battery_info = battery_info_alloc();
+            }
 
-            char battery_text[10];
-            snprintf(battery_text, sizeof(battery_text), "%d%%", power_info.charge);
+            // Prepare battery data
+            BatteryInfoModel battery_data = {
+                .vbus_voltage = 0,         // Populate with real data
+                .gauge_voltage = 0,        // Populate with real data
+                .gauge_current = 0,        // Populate with real data
+                .gauge_temperature = 0,    // Populate with real data
+                .charging_voltage = 4.2f,  // Populate with real data
+                .charge = 100,             // Populate with real data
+                .health = 100              // Populate with real data
+            };
 
-            // Draw the battery percentage on the status bar
-            canvas_draw_str(canvas, canvas_width(canvas) - 30, 10, battery_text);
+            // Set and draw the battery information
+            battery_info_set_data(battery_info, &battery_data);
+            view_free(battery_info_get_view(battery_info), canvas); //view_draw
 
-            furi_record_close(RECORD_POWER); // Close the Power service when done
             break;
         }
         case WindowEmpty:
@@ -58,5 +72,13 @@ void draw_callback(Canvas* canvas, void* ctx) {
             canvas_set_color(canvas, ColorBlack);
             canvas_draw_str(canvas, canvas_width(canvas) / 2 - 30, canvas_height(canvas) / 2, "Unknown Window");
             break;
+    }
+}
+
+// Clean up the BatteryInfo object
+void cleanup_battery_info() {
+    if(battery_info) {
+        battery_info_free(battery_info);
+        battery_info = NULL;
     }
 }

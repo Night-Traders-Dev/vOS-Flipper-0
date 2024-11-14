@@ -3,11 +3,15 @@ App(
     appid="vos_flipper",
     apptype=FlipperAppType.EXTERNAL,
     entry_point="main_entry",
+    sdk_headers=["power_service/power.h"],
     requires=[
-         "gui",
-        "input"
+        "gui",
+        "input",
+        "power",
+        "cli"
     ],
     stack_size=2 * 1024,
     fap_icon="icon.png",                                       
     fap_category="Misc",
+    fap_libs=["assets"],
 )

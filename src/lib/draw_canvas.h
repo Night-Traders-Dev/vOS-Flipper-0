@@ -3,6 +3,7 @@
 #define DRAW_CANVAS_H
 
 #include <gui/canvas.h>
+#include <gui/view.h>
 
 typedef enum {
     WindowStatus,
