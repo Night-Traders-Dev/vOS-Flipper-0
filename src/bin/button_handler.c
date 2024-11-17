@@ -25,29 +25,20 @@ void handle_cursor_movement() {
 
     // Move the cursor based on the current key
     if(current_key == InputKeyLeft) {
-        cursor_x = (cursor_x > 0) ? cursor_x - CURSOR_MOVE_STEP : 0;
+        cursor_x = (cursor_x > 0) ? cursor_x - CURSOR_MOVE_STEP : SCREEN_WIDTH - 1; // Wrap to the opposite side
         moved = true;
     } else if(current_key == InputKeyRight) {
-        cursor_x = (cursor_x < SCREEN_WIDTH - 1) ? cursor_x + CURSOR_MOVE_STEP : SCREEN_WIDTH - 1;
+        cursor_x = (cursor_x < SCREEN_WIDTH - 1) ? cursor_x + CURSOR_MOVE_STEP : 0; // Wrap to the opposite side
         moved = true;
     } else if(current_key == InputKeyUp) {
-        cursor_y = (cursor_y > 0) ? cursor_y - CURSOR_MOVE_STEP : 0;
+        cursor_y = (cursor_y > 0) ? cursor_y - CURSOR_MOVE_STEP : SCREEN_HEIGHT - 1; // Wrap to the opposite side
         moved = true;
     } else if(current_key == InputKeyDown) {
-        cursor_y = (cursor_y < SCREEN_HEIGHT - 1) ? cursor_y + CURSOR_MOVE_STEP : SCREEN_HEIGHT - 1;
+        cursor_y = (cursor_y < SCREEN_HEIGHT - 1) ? cursor_y + CURSOR_MOVE_STEP : 0; // Wrap to the opposite side
         moved = true;
     }
 
-    // Check if the cursor is at the edges and switch scenes accordingly
-    if(cursor_x == 0 && moved) {
-        current_window = (current_window == 0) ? (WindowCount - 1) : (current_window - 1);
-        cursor_x = SCREEN_WIDTH / 2; // Move cursor back to the center
-    } else if(cursor_x == SCREEN_WIDTH - 1 && moved) {
-        current_window = (current_window + 1) % WindowCount;
-        cursor_x = SCREEN_WIDTH / 2; // Move cursor back to the center
-    }
-
-    // Update the view if the cursor moved
+    // Check if the cursor moved and update the view
     if(moved) {
         view_port_update(view_port);
     }

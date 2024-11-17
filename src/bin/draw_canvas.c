@@ -40,11 +40,6 @@ void draw_callback(Canvas* canvas, void* ctx) {
             canvas_draw_str(canvas, canvas_width(canvas) - 30, 10, battery_text);
 
             furi_record_close(RECORD_POWER);
-
-            // Draw the mouse cursor
-            canvas_set_color(canvas, ColorBlack);
-            canvas_draw_str(canvas, cursor_x, cursor_y, "^");
-
             break;
         }
         case WindowEmpty:
@@ -66,4 +61,8 @@ void draw_callback(Canvas* canvas, void* ctx) {
             canvas_draw_str(canvas, canvas_width(canvas) / 2 - 30, canvas_height(canvas) / 2, "Unknown Window");
             break;
     }
+
+    // Draw the mouse cursor in all windows
+    canvas_set_color(canvas, ColorBlack);
+    canvas_draw_str(canvas, cursor_x, cursor_y, "^");
 }
