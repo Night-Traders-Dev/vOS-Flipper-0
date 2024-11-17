@@ -1,7 +1,9 @@
-gui/dist
-gui/dist/*
-gui/.vscode
-gui/.vscode/*
-gui/*.bak
-gui/lib/*.bak
-gui/bin/*.bak
+src/dist
+src/dist/*
+src/.vscode
+src/.vscode/*
+src/*.bak
+src/lib/*.bak
+src/bin/*.bak
+.vscode/
+.vscode/*
