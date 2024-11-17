@@ -12,5 +12,7 @@ typedef struct {
 } ButtonHandlerContext;
 
 void button_input_callback(InputEvent* input_event, void* ctx);
+void init_button_handler();
+void free_button_handler();
 
 #endif // BUTTON_HANDLER_H

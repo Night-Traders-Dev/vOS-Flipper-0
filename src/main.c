@@ -17,6 +17,8 @@ int32_t main_entry(void* p) {
         .first_press_time = 0
     };
 
+    init_button_handler(); // Initialize the button handler
+
     view_port = view_port_alloc();
     view_port_draw_callback_set(view_port, draw_callback, NULL);
     view_port_input_callback_set(view_port, button_input_callback, &context);
@@ -31,6 +33,8 @@ int32_t main_entry(void* p) {
     gui_remove_view_port(gui, view_port);
     view_port_free(view_port);
     furi_record_close(RECORD_GUI);
+
+    free_button_handler(); // Free the button handler
 
     return 0;
 }
