@@ -1,4 +1,3 @@
-// bin/button_handler.c
 #include <furi.h>
 #include <input/input.h>
 #include <gui/view_port.h>
@@ -11,6 +10,7 @@ extern ViewPort* view_port;
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
+#define STATUS_BAR_HEIGHT 14
 #define CURSOR_MOVE_STEP 1 // Step size for cursor movement
 #define BACK_PRESS_LIMIT 3
 #define TIME_WINDOW_MS 2000
@@ -18,12 +18,12 @@ extern ViewPort* view_port;
 
 static FuriTimer* movement_timer;
 static InputKey current_key = InputKeyDown;
-static bool is_key_held = false; // Track if a key is being held down
+static bool is_key_held = false;
 
 void handle_cursor_movement() {
     bool moved = false;
 
-    // Move the cursor based on the current key
+    // Move the cursor based on the current key, enforcing boundaries
     if(current_key == InputKeyLeft) {
         cursor_x = (cursor_x > 0) ? cursor_x - CURSOR_MOVE_STEP : SCREEN_WIDTH - 1; // Wrap to the opposite side
         moved = true;
@@ -31,10 +31,10 @@ void handle_cursor_movement() {
         cursor_x = (cursor_x < SCREEN_WIDTH - 1) ? cursor_x + CURSOR_MOVE_STEP : 0; // Wrap to the opposite side
         moved = true;
     } else if(current_key == InputKeyUp) {
-        cursor_y = (cursor_y > 0) ? cursor_y - CURSOR_MOVE_STEP : SCREEN_HEIGHT - 1; // Wrap to the opposite side
+        cursor_y = (cursor_y > STATUS_BAR_HEIGHT) ? cursor_y - CURSOR_MOVE_STEP : STATUS_BAR_HEIGHT; // Stay above the status bar
         moved = true;
     } else if(current_key == InputKeyDown) {
-        cursor_y = (cursor_y < SCREEN_HEIGHT - 1) ? cursor_y + CURSOR_MOVE_STEP : 0; // Wrap to the opposite side
+        cursor_y = (cursor_y < SCREEN_HEIGHT - 1) ? cursor_y + CURSOR_MOVE_STEP : SCREEN_HEIGHT - 1; // Stay within the screen
         moved = true;
     }
 
