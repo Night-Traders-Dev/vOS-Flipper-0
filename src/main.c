@@ -3,8 +3,8 @@
 #include <gui/gui.h>
 #include <gui/view_port.h>
 
-#include "lib/button_handler.h"
-#include "lib/draw_canvas.h"
+#include "lib/io_manager.h"
+#include "lib/gui_manager.h"
 
 ViewPort* view_port;
 
@@ -17,7 +17,7 @@ int32_t main_entry(void* p) {
         .first_press_time = 0
     };
 
-    init_button_handler(); // Initialize the button handler
+    init_mouse_handler(); // Initialize the button handler
 
     view_port = view_port_alloc();
     view_port_draw_callback_set(view_port, draw_callback, NULL);
@@ -34,7 +34,7 @@ int32_t main_entry(void* p) {
     view_port_free(view_port);
     furi_record_close(RECORD_GUI);
 
-    free_button_handler(); // Free the button handler
+    free_mouse_handler(); // Free the button handler
 
     return 0;
 }

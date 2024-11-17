@@ -2,7 +2,7 @@
 #include <gui/canvas.h>
 #include <power/power_service/power.h>
 #include <vos_flipper_icons.h>
-#include "../lib/draw_canvas.h"
+#include "../lib/gui_manager.h"
 
 // Define screen size for cursor boundaries
 #define SCREEN_WIDTH 128

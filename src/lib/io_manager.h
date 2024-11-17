@@ -1,6 +1,5 @@
-// lib/button_handler.h
-#ifndef BUTTON_HANDLER_H
-#define BUTTON_HANDLER_H
+#ifndef IO_MANAGER_H
+#define IO_MANAGER_H
 
 #include <furi.h>
 #include <input/input.h>
@@ -12,7 +11,7 @@ typedef struct {
 } ButtonHandlerContext;
 
 void button_input_callback(InputEvent* input_event, void* ctx);
-void init_button_handler();
-void free_button_handler();
+void init_mouse_handler();
+void free_mouse_handler();
 
-#endif // BUTTON_HANDLER_H
+#endif // IO_MANAGER_H

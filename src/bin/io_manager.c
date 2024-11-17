@@ -1,8 +1,8 @@
 #include <furi.h>
 #include <input/input.h>
 #include <gui/view_port.h>
-#include "../lib/button_handler.h"
-#include "../lib/draw_canvas.h"
+#include "lib/io_manager.h"
+#include "lib/gui_manager.h"
 
 extern ViewPort* view_port;
 
@@ -85,11 +85,11 @@ void button_input_callback(InputEvent* input_event, void* ctx) {
 }
 
 // Initialize the movement timer
-void init_button_handler() {
+void init_mouse_handler() {
     movement_timer = furi_timer_alloc(movement_timer_callback, FuriTimerTypePeriodic, NULL);
 }
 
 // Free the movement timer
-void free_button_handler() {
+void free_mouse_handler() {
     furi_timer_free(movement_timer);
 }
